@@ -1,11 +1,12 @@
 <?php
-
-$name_pattern = "/^[a-zA-Z]+/";
-
-
-echo "hello world";
-echo "<h3>Name: ".$_POST['name']."</h3>";
-echo "<h3>Email: ".$_POST['email']."</h3>";
-echo "<h3>Phone: ".$_POST['phone']."</h3>";
-echo "<h3>Message: ".$_POST['message']."</h3>";
+if($_SERVER['REQUEST_METHOD']=='POST'){
+echo "<h1>".$_POST['name']."</h1>";
+echo "<h1>".$_POST['profile_pic']."</h1>";
+$target_dir = "profile_pic/";
+print_r($_FILES);
+$target_file = $target_dir.basename($_FILES["image"]["name"]);
+// echo $target_file;
+move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $target_file);
+// $_POST['profile_pic'];
+}
 ?>

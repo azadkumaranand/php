@@ -28,6 +28,9 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
         // return;
     }
     // return;
+    echo "<pre>";
+    print_r($_POST['name']);
+    echo "<pre>";
     echo "
     <div class='container'>
     <h1>Submited form data post method</h1>
