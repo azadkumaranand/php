@@ -1,16 +1,44 @@
 <?php
+$fileAlreadyExists = "";
+$fileuploadedSuccessfully = "";
+$largeFileSize = "";
+$onlyjpgpngallowed = "";
 if($_SERVER['REQUEST_METHOD']=='POST'){
 echo "<h1>".$_POST['name']."</h1>";
 // echo "<h1>".$_POST['profile_pic']."</h1>";
+echo "<h1>".$_FILES['profile_pic']['size']."</h1>";
 $profile_dir = "profile_pic/";
-echo "<pre>";
-print_r($_FILES);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_FILES);
+// echo "</pre>";
 $profile_img_path = $profile_dir.basename($_FILES["profile_pic"]["name"]);
 // echo move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path);
-if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
-    echo "<h1>file uploaded successfully!</h1>";
+if(file_exists($profile_img_path)){
+    $fileAlreadyExists = "File already exists";
+}else{
+    echo $_FILES['profile_pic']['type'];
+    if($_FILES['profile_pic']['type'] == "image/jpg" || $_FILES['profile_pic']['type'] == "image/png"){
+        $onlyjpgpngallowed = "";
+        if ($_FILES['profile_pic']['size'] > 100000) {
+            $largeFileSize = "File size should be less than 50kb";
+         }else{
+             if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
+                 $fileuploadedSuccessfully = "file uploaded successfully!";
+                 $fileAlreadyExists = "";
+                 $largeFileSize = "";
+                 
+             }
+         }
+    }else{
+        $onlyjpgpngallowed = "File should be jpg or png format";
+    }
+    
 }
+// if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
+//     $fileuploadedSuccessfully = "file uploaded successfully!";
+//     $fileAlreadyExists = "";
+// }
+
 // $_POST['profile_pic'];
 }
 // $assArr = array('employe'=>['name', 'age'=>[41, 52, 12], 'gender'], 'mager'=>['namemanager', 'agemanger']);
@@ -35,6 +63,10 @@ if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
     <div class="container">
         <!-- <img src="<?php// echo $_POST['profile_pic'] ?>" alt="profile img"> -->
         <h1>Contact Us Post method</h1>
+        <h3 class="text-danger"><?php echo $fileAlreadyExists; ?></h3>
+        <h3 class="text-danger"><?php echo $onlyjpgpngallowed; ?></h3>
+        <h3 class="text-success"><?php echo $fileuploadedSuccessfully; ?></h3>
+        <h3 class="text-danger"><?php echo $largeFileSize; ?></h3>
         <form action="" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <p class="text-danger"></p>
