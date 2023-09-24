@@ -6,27 +6,32 @@ $onlyjpgpngallowed = "";
 if($_SERVER['REQUEST_METHOD']=='POST'){
 echo "<h1>".$_POST['name']."</h1>";
 // echo "<h1>".$_POST['profile_pic']."</h1>";
-echo "<h1>".$_FILES['profile_pic']['size']."</h1>";
+// echo "<h1>".$_FILES['profile_pic']['size']."</h1>";
 $profile_dir = "profile_pic/";
 // echo "<pre>";
 // print_r($_FILES);
 // echo "</pre>";
+
+/* this is path for submitted file  */
 $profile_img_path = $profile_dir.basename($_FILES["profile_pic"]["name"]);
 // echo move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path);
+
+// you can use pathinfo function for finding fiel extension
+$profile_pic_extension = pathinfo($profile_img_path, PATHINFO_EXTENSION);
+echo "<h1> file extension is ".$profile_pic_extension."</h1>";
 if(file_exists($profile_img_path)){
     $fileAlreadyExists = "File already exists";
 }else{
     echo $_FILES['profile_pic']['type'];
-    if($_FILES['profile_pic']['type'] == "image/jpg" || $_FILES['profile_pic']['type'] == "image/png"){
+    if($profile_pic_extension == "jpg" || $profile_pic_extension == "png" || $profile_pic_extension == "gif"){
         $onlyjpgpngallowed = "";
         if ($_FILES['profile_pic']['size'] > 100000) {
-            $largeFileSize = "File size should be less than 50kb";
+            $largeFileSize = "File size should be less than 100kb";
          }else{
              if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
                  $fileuploadedSuccessfully = "file uploaded successfully!";
                  $fileAlreadyExists = "";
                  $largeFileSize = "";
-                 
              }
          }
     }else{
@@ -34,6 +39,8 @@ if(file_exists($profile_img_path)){
     }
     
 }
+
+// move_uploaded_file function is used to move file from temprory folder to actual folder
 // if(move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path)){
 //     $fileuploadedSuccessfully = "file uploaded successfully!";
 //     $fileAlreadyExists = "";
