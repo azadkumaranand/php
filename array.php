@@ -1,7 +1,8 @@
 <?php
+session_start();
 // index array
 $arr = array("Rahul", "Sumit", "Vedant", "Shagun", "Sandhya");
-
+echo "<h1>Username => ".$_SESSION['username']."</h1>";
 echo "<h1>".$arr[2]."</h1>";
 //count menthod is used for finding length of array
 echo "<h1>".count($arr)."</h1>";

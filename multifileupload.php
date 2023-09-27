@@ -1,13 +1,19 @@
 <?php
+$fileSizeError = "";
 if($_SERVER['REQUEST_METHOD']=='POST'){
     // echo "<pre>";
     // print_r($_FILES['profile_pic']);
     // echo "</pre>";
     $product_img_dir = "productimg/";
-    for($i=0; $i<count($_FILES['profile_pic']['name']); $i++){
+    for($i=0; $i<count($_FILES['profile_pic']['tmp_name']); $i++){
         $product_img_path = $product_img_dir.basename($_FILES['profile_pic']['name'][$i]);
-        echo "<h3>".pathinfo($product_img_path, PATHINFO_EXTENSION)."</h1>";
-        move_uploaded_file($_FILES['profile_pic']['tmp_name'][$i], $product_img_path);
+        // echo "<h3>".pathinfo($product_img_path, PATHINFO_EXTENSION)."</h1>";
+        if($_FILES['profile_pic']['size'][$i]>50000){
+            $fileSizeError = "File size should be less than 50kb";
+            // continue;
+        }else{
+            move_uploaded_file($_FILES['profile_pic']['tmp_name'][$i], $product_img_path);
+        }
     }
 }
 
@@ -28,7 +34,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <div class="container">
         <!-- <img src="<?php// echo $_POST['profile_pic'] ?>" alt="profile img"> -->
         <h1>Contact Us Post method</h1>
-        <h3 class="text-danger"><?php //echo $fileAlreadyExists; ?></h3>
+        <h3 class="text-danger"><?php echo $fileSizeError; ?></h3>
         <h3 class="text-danger"><?php //echo $onlyjpgpngallowed; ?></h3>
         <h3 class="text-success"><?php //echo $fileuploadedSuccessfully; ?></h3>
         <h3 class="text-danger"><?php //echo $largeFileSize; ?></h3>

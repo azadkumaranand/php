@@ -11,7 +11,7 @@ $profile_dir = "profile_pic/";
 // echo "<pre>";
 // print_r($_FILES);
 // echo "</pre>";
-
+#single line comment
 /* this is path for submitted file  */
 $profile_img_path = $profile_dir.basename($_FILES["profile_pic"]["name"]);
 // echo move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $profile_img_path);
