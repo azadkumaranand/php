@@ -6,8 +6,9 @@ echo "<h1>Let's start opps!</h1>";
 class Fruits{
     public $name;
     public $color;
-
+    
     function setnameandcolor($name, $color){
+        // $GLOBALS['X'];
         $this->name = $name;
         $this->color = $color;
     }
