@@ -20,6 +20,9 @@ class Car{
 class BMW extends Car{
     public $maXpeed = "150kmph";
 }
+class Bugati extends Car{
+
+}
 
 $bmw = new BMW("BMW", 'Black', "50lack", "1000kg");
 echo "<h1>".$bmw->name."</h1>";

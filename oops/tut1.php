@@ -18,14 +18,13 @@ class Fruits{
     function getColor(){
         return $this->color;
     }
-
 }
 
 $banana = new Fruits();
 $banana->setnameandcolor("Banana", "Yellow");
-echo $banana->getColor();
+echo $banana->name;
 $mango = new Fruits();
 $mango->setnameandcolor("Mango", "Green");
-echo $mango->getColor();
+echo $mango->name;
 
 ?>
